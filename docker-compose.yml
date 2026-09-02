@@ -1,0 +1,43 @@
+services:
+  megacmd:
+    command: null
+    container_name: megacmd
+    image: ghcr.io/YOUR-GITHUB-USERNAME/megacmd:latest
+    entrypoint: null
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        limits:
+          memory: 1GB
+          cpus: "1.00"
+        reservations:
+          memory: 128MB
+          cpus: "0.00"
+      placement: {}
+    labels:
+      icon: https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/mega.svg
+    network_mode: bridge
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /media/ZimaOS-HD/AppData/megacmd/config
+        target: /root/.megaCmd
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /media/ZimaOS-HD
+        target: /data
+        bind:
+          create_host_path: true
+x-casaos:
+  hostname: 192.168.0.220
+  icon: https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/mega.svg
+  index: /
+  is_uncontrolled: false
+  main: megacmd
+  port_map: ""
+  scheme: http
+  store_app_id: megacmd
+  title:
+    custom: MEGAcmd
